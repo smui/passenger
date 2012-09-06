@@ -555,6 +555,10 @@ private
 		if input_stream && !input_stream.closed?
 			input_stream.close rescue nil
 		end
+		# Force GC to run between requests only
+		GC.enable
+		GC.start
+		GC.disable
 	end
 	
 	# Read the next request from the given socket, and return
